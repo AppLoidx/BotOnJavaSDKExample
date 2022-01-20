@@ -1,6 +1,8 @@
 package core;
 
 
+import com.vk.api.sdk.exceptions.ApiException;
+import com.vk.api.sdk.exceptions.ClientException;
 import com.vk.api.sdk.objects.messages.Message;
 
 /**
@@ -22,7 +24,7 @@ public abstract class Command {
      * Метод, который будет вызываться для исполнения команды
      * @param message сообщение пользователя
      */
-    public abstract void exec(Message message);
+    public abstract void exec(Message message) throws ClientException, ApiException;
 
     /**
      * Возвращает строку в формате:<br>
@@ -55,7 +57,7 @@ public abstract class Command {
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Command){
-            if (name.equals(((Command) obj).name)){
+            if (name.equalsIgnoreCase((String) obj)){
                 return true;
             }
         }
